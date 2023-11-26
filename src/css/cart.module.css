@@ -1,0 +1,91 @@
+.modal {
+  background-color: rgb(3, 36, 24, 0.4);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+.cart {
+  height: 100%;
+  width: 46%;
+  background-color: white;
+  position: relative;
+  color: rgb(3, 36, 24);
+}
+.head_cancel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+.head_cancel > p {
+  font-size: 1.2rem;
+}
+.head_cancel > img {
+  height: 25px;
+  width: 25px;
+}
+.head_cancel > img:hover {
+  height: 26px;
+  width: 26px;
+  border-radius: 5px;
+  border: 1px solid rgb(3, 36, 24);
+}
+.content {
+  padding: 20px;
+  overflow: auto;
+}
+.cartitem {
+  margin: 10px 0;
+  border: 1px solid rgb(3, 36, 24);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: 5px;
+}
+.price_delete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.price_delete > img {
+  height: 20px;
+  color: 20px;
+  margin-left: 8px;
+}
+.price_delete > img:hover {
+  height: 22px;
+  width: 22px;
+  border: 1px solid red;
+  border-radius: 5px;
+}
+.pay {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  position: absolute;
+  padding: 3% 20px 5%;
+  bottom: 0px;
+  height: 10px;
+}
+.pay > button {
+  background-color: rgb(3, 36, 24);
+  padding: 10px 15px;
+  color: white;
+  font-size: 1.1rem;
+  border: 0;
+  border-radius: 8px;
+}
+.pay > button:hover {
+  border: 1px solid green;
+}
+@media screen and (max-width: 769px) {
+  .cart {
+    width: 100%;
+  }
+}

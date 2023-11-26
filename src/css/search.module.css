@@ -1,0 +1,56 @@
+.modal {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  z-index: 2;
+  position: fixed;
+  background-color: rgb(128, 128, 128, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+}
+.modalChild {
+  background-color: white;
+  padding: 20px 15px;
+  position: relative;
+  top: 10vh;
+  border-radius: 8px;
+}
+.headCancel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.modal p {
+  color: rgb(3, 36, 24);
+}
+.headCancel > img {
+  height: 18px;
+  width: 18px;
+}
+.search {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  align-items: center;
+}
+.searchIcon {
+  padding: 10px 15px;
+  border-radius: 0 6px 6px 0;
+  background-color: rgb(3, 36, 24);
+  display: flex;
+  align-items: center;
+}
+.search img {
+  height: 20px;
+  width: 20px;
+}
+.search input {
+  padding: 10px;
+  border: none;
+  border-radius: 7px 0 0 7px;
+  outline: 0;
+  font-size: 16px;
+  width: 30vw;
+}

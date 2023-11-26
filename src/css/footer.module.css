@@ -1,0 +1,36 @@
+.footer {
+  color: white;
+  background-color: rgb(3, 36, 24);
+}
+.footer > * {
+  max-width: 73rem;
+  margin: auto;
+}
+.infoLink {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+.infoLinkChild > * {
+  margin: 20px 0px;
+}
+.infoLinkChild > .head {
+  font-weight: bold;
+  font-size: 19px;
+}
+.infoLinkChild > .logo {
+  font-size: 43px;
+  font-family: serif;
+}
+.copyright {
+  padding: 30px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media only screen and (max-width: 769px) {
+  .infoLink {
+    flex-direction: column;
+  }
+}
