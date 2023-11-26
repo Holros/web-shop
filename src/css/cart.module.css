@@ -1,6 +1,6 @@
 .modal {
   background-color: rgb(3, 36, 24, 0.4);
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: fixed;
   z-index: 1;
