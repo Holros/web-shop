@@ -138,7 +138,7 @@ function Header({
               style={{
                 position: "absolute",
                 top: "-12px",
-                backgroundColor: "rgb(4, 38, 22,0.8)",
+                backgroundColor: "orange",
                 borderRadius: "50%",
                 height: "14px",
                 width: "14px",
@@ -159,6 +159,10 @@ function Header({
               ref={menu}
               style={{ display: "none" }}
               className={style.dropdownContent}
+              onClick={() => {
+                menu.current.style.display = "none";
+                menuIcons.current.src = menuIcon;
+              }}
             >
               {isLoggedIn ? (
                 <>
@@ -169,8 +173,8 @@ function Header({
                     to="/signin"
                     onClick={() => {
                       setIsLoggedIn(false);
-                      localStorage.removeItem("isLoggedIn");
-                      localStorage.removeItem("token");
+                      setCartItems([]);
+                      setToken(null);
                       toast.success("Logged Out");
                     }}
                   >
