@@ -70,7 +70,7 @@
   background-color: white;
   position: absolute;
   padding: 3% 20px 5%;
-  bottom: 0px;
+  bottom: 5px;
   height: 10px;
 }
 .pay > button {
