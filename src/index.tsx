@@ -10,19 +10,20 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from "./pages/Home";
 import Item from "./pages/Item";
 import SearchPage from "./pages/SearchPage";
+import { CartItems, Product } from "./projectTypes";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    const value = localStorage.getItem("isLoggedIn");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
+    const value: boolean | null | string = localStorage.getItem("isLoggedIn");
     return value ? JSON.parse(value) : false;
   });
-  const [token, setToken] = useState(() => {
-    const value = localStorage.getItem("token");
+  const [token, setToken] = useState<string | null>(() => {
+    const value: null | string = localStorage.getItem("token");
     return value ? JSON.parse(value) : null;
   });
-  const [products, setProducts] = useState([]);
-  const [nextProducts, setNextProducts] = useState(null);
-  const [cartItems, setCartItems] = useState(() => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [nextProducts, setNextProducts] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<CartItems[]>(() => {
     const value = sessionStorage.getItem("cartItems");
     return value ? JSON.parse(value) : [];
   });
@@ -102,5 +103,5 @@ function App() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);

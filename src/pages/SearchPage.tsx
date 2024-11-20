@@ -1,6 +1,7 @@
 import style from "../css/home.module.css";
 import Products from "../components/Products";
 import toast, { Toaster } from "react-hot-toast";
+import { CartItems, Product } from "../projectTypes";
 function SearchPage({
   token,
   cartItems,
@@ -9,23 +10,33 @@ function SearchPage({
   setProducts,
   nextProducts,
   setNextProducts,
+}: {
+  token: string | null;
+  cartItems: CartItems[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItems[]>>;
+  products: Product[];
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  nextProducts: string | null;
+  setNextProducts: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   const loadMore = async () => {
-    const toastId = toast.loading("Loading...");
-    try {
-      let response = await fetch(nextProducts, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      let data = await response.json();
-      const { results, next } = data;
-      setProducts((prev) => [...prev, ...results]);
-      setNextProducts(next);
-      toast.dismiss(toastId);
-    } catch (err) {
-      toast.dismiss(toastId);
-      toast.error("Check Your Internet Connection");
+    if (nextProducts) {
+      const toastId = toast.loading("Loading...");
+      try {
+        let response = await fetch(nextProducts, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        });
+        let data = await response.json();
+        const { results, next } = data;
+        setProducts((prev) => [...prev, ...results]);
+        setNextProducts(next);
+        toast.dismiss(toastId);
+      } catch (err) {
+        toast.dismiss(toastId);
+        toast.error("Check Your Internet Connection");
+      }
     }
   };
   return (

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import style from "../css/header.module.css";
 import searchIcon from "../icons/icons8-search-50 (1).png";
@@ -9,6 +9,7 @@ import Search from "./Search";
 import { memo } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Cart from "./Cart";
+import { CartItems, Product } from "../projectTypes";
 function Header({
   isLoggedIn,
   setIsLoggedIn,
@@ -18,18 +19,28 @@ function Header({
   setToken,
   setProducts,
   setNextProducts,
+}: {
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  cartItems: CartItems[];
+  setCartItems: React.Dispatch<React.SetStateAction<CartItems[]>>;
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  setNextProducts: React.Dispatch<React.SetStateAction<string | null>>;
 }) {
   const [searchVisibile, setSearchVisibile] = useState(false);
   const [show, setShow] = useState("none");
-  const menu = useRef();
-  const menuIcons = useRef();
+  const menu = useRef<HTMLDivElement | null>(null);
+  const menuIcons = useRef<HTMLImageElement | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const showMenu = () => {
-    if (menu.current.style.display === "none") {
+    if (menu.current && menuIcons.current && menu.current.style.display === "none") {
       menu.current.style.display = "flex";
       menuIcons.current.src = cancelIcon;
-    } else {
+    } 
+    else if(menu.current && menuIcons.current) {
       menu.current.style.display = "none";
       menuIcons.current.src = menuIcon;
     }
@@ -51,7 +62,6 @@ function Header({
         token={token}
         setProducts={setProducts}
         setNextProducts={setNextProducts}
-        toast={toast}
         isLoggedIn={isLoggedIn}
       />
       <Cart
@@ -109,7 +119,7 @@ function Header({
               style={{
                 position: "absolute",
                 top: "-12px",
-                backgroundColor: "orange",
+                backgroundColor: "#038C6E",
                 borderRadius: "50%",
                 height: "14px",
                 width: "14px",
@@ -138,7 +148,7 @@ function Header({
               style={{
                 position: "absolute",
                 top: "-12px",
-                backgroundColor: "orange",
+                backgroundColor: "#038C6E",
                 borderRadius: "50%",
                 height: "14px",
                 width: "14px",
@@ -160,8 +170,9 @@ function Header({
               style={{ display: "none" }}
               className={style.dropdownContent}
               onClick={() => {
+                if(menu.current && menuIcons.current){
                 menu.current.style.display = "none";
-                menuIcons.current.src = menuIcon;
+                menuIcons.current.src = menuIcon;}
               }}
             >
               {isLoggedIn ? (
@@ -181,9 +192,11 @@ function Header({
                     Logout
                   </Link>
                   <Link
+                  to="#"
                     onClick={() => {
+                      if (menu.current && menuIcons.current){
                       menu.current.style.display = "none";
-                      menuIcons.current.src = menuIcon;
+                      menuIcons.current.src = menuIcon;}
                       setSearchVisibile(true);
                     }}
                   >
@@ -195,9 +208,11 @@ function Header({
                   <Link to="/">Home</Link>
                   <Link to="/signin">Sign In</Link>
                   <Link
+                  to="#"
                     onClick={() => {
+                      if(menu.current && menuIcons.current){
                       menu.current.style.display = "none";
-                      menuIcons.current.src = menuIcon;
+                      menuIcons.current.src = menuIcon;}
                       setSearchVisibile(true);
                     }}
                   >

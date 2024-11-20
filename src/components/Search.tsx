@@ -4,26 +4,34 @@ import style from "../css/search.module.css";
 import cancelIcon from "../icons/icons8-cancel-50.png";
 import searchIcon from "../icons/icons8-search-white.png";
 import { useNavigate } from "react-router-dom";
+import { Product } from "../projectTypes";
+import toast from "react-hot-toast";
 function Search({
   searchVisibile,
   setSearchVisibile,
   token,
   setProducts,
   setNextProducts,
-  toast,
   isLoggedIn,
+}: {
+  searchVisibile: boolean;
+  setSearchVisibile: React.Dispatch<React.SetStateAction<boolean>>;
+  token: string | null;
+  setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+  setNextProducts: React.Dispatch<React.SetStateAction<string | null>>;
+  isLoggedIn: boolean;
 }) {
-  const search = useRef();
+  const search = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm<{ search: string }>();
   useEffect(() => {
-    if (searchVisibile === true) {
+    if (search.current && searchVisibile === true) {
       search.current.style.display = "flex";
-    } else {
+    } else if (search.current) {
       search.current.style.display = "none";
     }
   }, [searchVisibile]);
-  const searchProduct = (data) => {
+  const searchProduct = (data: { search: string }) => {
     const toastId = toast.loading("Searching For Products");
     const searchProduct = data.search;
     if (searchProduct.trim() === "") {
@@ -37,7 +45,7 @@ function Search({
     const fetchData = async () => {
       try {
         let response = await fetch(
-          `https://elegantapp.pythonanywhere.com/api/shop/items/?name=${searchProduct}`,
+          `https://web-shop-347882250283.us-east4.run.app/api/shop/items/?name=${searchProduct}`,
           {
             headers: {
               Authorization: `Token ${token}`,

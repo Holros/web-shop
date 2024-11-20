@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import style from "../css/modal.module.css";
 import cancel from "../icons/icons8-cancel-50.png";
 import { useForm } from "react-hook-form";
+import { CartItems, Product } from "../projectTypes";
+import toast  from "react-hot-toast";
+
 function Modal({
   show,
   setShow,
@@ -9,16 +12,21 @@ function Modal({
   modalProductItem,
   token,
   setSaleProducts,
-  toast,
+}:{show:string,
+  setShow: React.Dispatch<React.SetStateAction<string>>,
+  type: string,
+  modalProductItem: Product,
+  token: string | null,
+  setSaleProducts: React.Dispatch<React.SetStateAction<Product[]>>,
 }) {
-  const [, setData] = useState();
+  // const [, setData] = useState();
   const {
     handleSubmit,
     register,
     reset,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm<Product>();
   useEffect(() => {
     if (show === "none") {
       reset();
@@ -29,9 +37,9 @@ function Modal({
     setValue("description", modalProductItem.description);
     setValue("price", modalProductItem.price);
   }, [modalProductItem, setValue]);
-  const addProduct = (data) => {
+  const addProduct = (data: Product) => {
     const toastId = toast.loading("Adding Product");
-    setData(data);
+    // setData(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -41,7 +49,7 @@ function Modal({
     let addProduct = async () => {
       try {
         let response = await fetch(
-          "https://elegantapp.pythonanywhere.com/api/shop/items/",
+          "https://web-shop-347882250283.us-east4.run.app/api/shop/items/",
           {
             method: "POST",
             headers: {
@@ -53,7 +61,7 @@ function Modal({
         if (response.ok) {
           {
             let response = await fetch(
-              "https://elegantapp.pythonanywhere.com/api/shop/history/sale",
+              "https://web-shop-347882250283.us-east4.run.app/api/shop/history/sale",
               {
                 headers: {
                   Authorization: `Token ${token}`,
@@ -74,9 +82,9 @@ function Modal({
     };
     addProduct();
   };
-  const editProduct = (data) => {
+  const editProduct = (data: Product) => {
     const toastId = toast.loading("Editing Product");
-    setData(data);
+    // setData(data);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("description", data.description);
@@ -88,7 +96,7 @@ function Modal({
     let editProduct = async () => {
       try {
         let response = await fetch(
-          `https://elegantapp.pythonanywhere.com/api/shop/items/${modalProductItem.id}/`,
+          `https://web-shop-347882250283.us-east4.run.app/api/shop/items/${modalProductItem.id}/`,
           {
             method: "PATCH",
             headers: {
@@ -99,7 +107,7 @@ function Modal({
         );
         if (response.ok) {
           let response = await fetch(
-            "https://elegantapp.pythonanywhere.com/api/shop/history/sale",
+            "https://web-shop-347882250283.us-east4.run.app/api/shop/history/sale",
             {
               headers: {
                 Authorization: `Token ${token}`,
@@ -123,7 +131,7 @@ function Modal({
     const toastId = toast.loading("Deleting Product");
     try {
       await fetch(
-        `https://elegantapp.pythonanywhere.com/api/shop/items/${modalProductItem.id}/`,
+        `https://web-shop-347882250283.us-east4.run.app/api/shop/items/${modalProductItem.id}/`,
         {
           method: "DELETE",
           headers: {
@@ -133,7 +141,7 @@ function Modal({
       );
       {
         let response = await fetch(
-          "https://elegantapp.pythonanywhere.com/api/shop/history/sale",
+          "https://web-shop-347882250283.us-east4.run.app/api/shop/history/sale",
           {
             headers: {
               Authorization: `Token ${token}`,

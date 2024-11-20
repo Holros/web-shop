@@ -2,19 +2,23 @@ import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import style from "../css/sign.module.css";
-import { useState } from "react";
+
+interface FormValues {
+  userName: string,
+  password: string,
+  email: string,
+  repeatPassword: string
+}
 function SignUp() {
-  const [, setData] = useState();
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
+  } = useForm<FormValues>();
+  const onSubmit = (data: FormValues) => {
     const toastId = toast.loading("Signing Up");
-    setData(data);
     let formData = {
       username: data.userName,
       password: data.password,
@@ -23,7 +27,7 @@ function SignUp() {
     let submitData = async () => {
       try {
         let response = await fetch(
-          "https://elegantapp.pythonanywhere.com/api/auth/signup/",
+          "https://web-shop-347882250283.us-east4.run.app/api/auth/signup/",
           {
             method: "POST",
             headers: {

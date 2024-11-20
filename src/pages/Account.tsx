@@ -1,19 +1,30 @@
 import style from "../css/sign.module.css";
-import { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-function Account({ token, setToken }) {
-  const form = useRef();
+
+type FormValues = {
+  oldPassword: string;
+  password: string;
+  repeatPassword: string
+};
+
+function Account({
+  token,
+  setToken,
+}: {
+  token: string | null;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}) {
+  const form = useRef<HTMLFormElement | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
-  const [, setData] = useState();
-  const onSubmit = (data) => {
+  } = useForm<FormValues>();
+  const onSubmit = (data: FormValues) => {
     const toastId = toast.loading("Changing Password");
-    setData(data);
     let formData = {
       old_password: data.oldPassword,
       new_password: data.password,
@@ -21,7 +32,7 @@ function Account({ token, setToken }) {
     let submitData = async () => {
       try {
         let response = await fetch(
-          "https://elegantapp.pythonanywhere.com/api/auth/reset/",
+          "https://web-shop-347882250283.us-east4.run.app/api/auth/reset/",
           {
             method: "POST",
             headers: {
@@ -36,7 +47,7 @@ function Account({ token, setToken }) {
         if (response.ok) {
           setToken(data.token);
           toast.success("Password Changed Successfully", { id: toastId });
-          form.current.reset();
+          if(form.current) form.current.reset();
         } else if (response.status === 400) {
           toast.error(data.old_password[0], { id: toastId });
         }

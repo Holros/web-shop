@@ -28,12 +28,12 @@
 }
 .sign input[type="submit"] {
   margin-top: 10px;
-  background-color: rgb(216, 167, 5);
+  background-color: #02ffc8b0;
   border: 1px solid white;
   color: white;
 }
 .sign input[type="submit"]:hover {
-  background-color: rgb(190, 147, 4);
+  background-color: #03594B;
 }
 .sign input[type="checkbox"] {
   width: 20px;
@@ -43,6 +43,6 @@
   justify-content: center;
 }
 .sign a {
-  color: rgb(196, 155, 20);
+  color: #02ffc8b0;
   margin: auto;
 }

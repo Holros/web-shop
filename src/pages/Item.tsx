@@ -4,19 +4,27 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import Products from "../components/Products";
 import Modal from "../components/Modal";
-function Item({ token }) {
+import { Product } from "../projectTypes";
+function Item({ token }: { token: string | null }) {
   const [purchasedProducts, setPurchasedProducts] = useState([]);
-  const [saleProducts, setSaleProducts] = useState([]);
-  const [soldProducts, setSoldProducts] = useState([]);
+  const [saleProducts, setSaleProducts] = useState<Product[]>([]);
+  const [soldProducts, setSoldProducts] = useState<Product[]>([]);
   const [show, setShow] = useState("none");
   const [type, setType] = useState("add");
-  const [modalProductItem, setModalProductItem] = useState([]);
+  const [modalProductItem, setModalProductItem] = useState<Product>({
+    id: "",
+    name: "",
+    price: "",
+    description:"",
+    updated_at: "",
+    thumbnail: ""
+  });
   useEffect(() => {
     {
       let fetchPurchasedProduct = async () => {
         try {
           let response = await fetch(
-            "https://elegantapp.pythonanywhere.com/api/shop/history/purchased",
+            "https://web-shop-347882250283.us-east4.run.app/api/shop/history/purchased",
             {
               headers: {
                 Authorization: `Token ${token}`,
@@ -36,7 +44,7 @@ function Item({ token }) {
       let fetchSaleProduct = async () => {
         try {
           let response = await fetch(
-            "https://elegantapp.pythonanywhere.com/api/shop/history/sale",
+            "https://web-shop-347882250283.us-east4.run.app/api/shop/history/sale",
             {
               headers: {
                 Authorization: `Token ${token}`,
@@ -57,7 +65,7 @@ function Item({ token }) {
         const toastId = toast.loading("Loading...");
         try {
           let response = await fetch(
-            "https://elegantapp.pythonanywhere.com/api/shop/history/sold",
+            "https://web-shop-347882250283.us-east4.run.app/api/shop/history/sold",
             {
               headers: {
                 Authorization: `Token ${token}`,
@@ -86,7 +94,6 @@ function Item({ token }) {
         modalProductItem={modalProductItem}
         token={token}
         setSaleProducts={setSaleProducts}
-        toast={toast}
       />
       <h1 className={style.header}> My Products </h1>
       <div className={style.center}>
@@ -108,7 +115,7 @@ function Item({ token }) {
           </div>
         ) : (
           <div className={style.content}>
-            {purchasedProducts.map((item) => (
+            {purchasedProducts.map((item : Product) => (
               <Products key={item.id} item={item} />
             ))}
           </div>
@@ -130,7 +137,6 @@ function Item({ token }) {
                 setShow={setShow}
                 type={type}
                 setModalProductItem={setModalProductItem}
-                modalProductItem={modalProductItem}
               />
             ))}
           </div>

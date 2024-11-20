@@ -3,18 +3,28 @@ import toast, { Toaster } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import style from "../css/sign.module.css";
-function SignIn({ setIsLoggedIn, setToken }) {
-  const [, setData] = useState();
-  const [toggle, setToggle] = useState("password");
+
+interface FormValues {
+  userName: string;
+  password: string;
+}
+
+function SignIn({
+  setIsLoggedIn,
+  setToken,
+}: {
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
+}) {
+  const [toggle, setToggle] = useState<string>("password");
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
+  } = useForm<FormValues>();
+  const onSubmit = (data: FormValues) => {
     const toastId = toast.loading("Logging In");
-    setData(data);
     let formData = {
       username: data.userName,
       password: data.password,
@@ -22,7 +32,7 @@ function SignIn({ setIsLoggedIn, setToken }) {
     let postData = async () => {
       try {
         let response = await fetch(
-          "https://elegantapp.pythonanywhere.com/api/auth/login/",
+          "https://web-shop-347882250283.us-east4.run.app/api/auth/login/",
           {
             method: "POST",
             headers: {

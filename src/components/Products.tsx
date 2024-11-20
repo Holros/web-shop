@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import style from "../css/products.module.css";
+import { CartItems, Product } from "../projectTypes";
 function Products({
   item,
   type,
@@ -9,6 +10,15 @@ function Products({
   addToCart,
   setCartItems,
   cartItems,
+}: {
+  item: Product;
+  type?: string;
+  setType?: React.Dispatch<React.SetStateAction<string>>;
+  setShow?: React.Dispatch<React.SetStateAction<string>>;
+  setModalProductItem?: React.Dispatch<React.SetStateAction<Product>>;
+  addToCart?: boolean;
+  setCartItems?: React.Dispatch<React.SetStateAction<CartItems[]>>;
+  cartItems?: CartItems[];
 }) {
   let check = item.id;
   const [isInCart, setIsInCart] = useState(false);
@@ -25,7 +35,7 @@ function Products({
   return (
     <div className={style.product}>
       <div className={style.image}>
-        {<img src={item.thumbnail} alt="product" />}
+        {<img src={item.thumbnail as string} alt="product" />}
       </div>
       <div className={style.card}>
         <div className={style.name_price}>
@@ -34,7 +44,7 @@ function Products({
         </div>
         <p className={style.desc}>{item.description}</p>
         <p>{new Date(item.updated_at).toDateString()}</p>
-        {type ? (
+        {type && setType && setModalProductItem && setShow ? (
           <button
             onClick={() => {
               setType("edit");
@@ -45,7 +55,7 @@ function Products({
             Edit
           </button>
         ) : null}
-        {addToCart ? (
+        {addToCart && setCartItems ? (
           isInCart ? (
             <button
               onClick={async () => {
