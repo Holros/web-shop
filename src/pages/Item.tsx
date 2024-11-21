@@ -15,9 +15,9 @@ function Item({ token }: { token: string | null }) {
     id: "",
     name: "",
     price: "",
-    description:"",
+    description: "",
     updated_at: "",
-    thumbnail: ""
+    thumbnail: "",
   });
   useEffect(() => {
     {
@@ -107,54 +107,56 @@ function Item({ token }: { token: string | null }) {
           Add New
         </button>
       </div>
-      <div className={style.segment}>
-        <p>Purchased Products</p>
-        {purchasedProducts.length < 1 ? (
-          <div className={style.didnt_load}>
-            <h2>Products You Buy Will Appear Here</h2>
-          </div>
-        ) : (
-          <div className={style.content}>
-            {purchasedProducts.map((item : Product) => (
-              <Products key={item.id} item={item} />
-            ))}
-          </div>
-        )}
-      </div>
-      <div className={style.segment}>
-        <p>Products For Sale</p>
-        {saleProducts.length < 1 ? (
-          <div className={style.didnt_load}>
-            <h2>Products You Have For Sale Will Appear Here</h2>
-          </div>
-        ) : (
-          <div className={style.content}>
-            {saleProducts.map((item) => (
-              <Products
-                key={item.id}
-                setType={setType}
-                item={item}
-                setShow={setShow}
-                type={type}
-                setModalProductItem={setModalProductItem}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-      <div className={style.segment}>
-        <p>Sold Products</p>
-        {soldProducts.length < 1 ? (
-          <div className={style.didnt_load}>
-            <h2>Your Products Other Users Have Purchased Will Appear Here</h2>
-          </div>
-        ) : (
-          <div className={style.content}>
-            {soldProducts.map((item) => (
-              <Products key={item.id} item={item} />
-            ))}
-          </div>
-        )}
+      <div style={{ padding: "0px 15px" }}>
+        <div className={style.segment}>
+          <p>Purchased Products</p>
+          {purchasedProducts.length < 1 ? (
+            <div className={style.didnt_load}>
+              <h2>Products You Buy Will Appear Here</h2>
+            </div>
+          ) : (
+            <div className={style.content}>
+              {purchasedProducts.map((item: Product) => (
+                <Products key={item.id} item={item} />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={style.segment}>
+          <p>Products For Sale</p>
+          {saleProducts.length < 1 ? (
+            <div className={style.didnt_load}>
+              <h2>Products You Have For Sale Will Appear Here</h2>
+            </div>
+          ) : (
+            <div className={style.content}>
+              {saleProducts.map((item) => (
+                <Products
+                  key={item.id}
+                  setType={setType}
+                  item={item}
+                  setShow={setShow}
+                  type={type}
+                  setModalProductItem={setModalProductItem}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={style.segment}>
+          <p>Sold Products</p>
+          {soldProducts.length < 1 ? (
+            <div className={style.didnt_load}>
+              <h2>Your Products Other Users Have Purchased Will Appear Here</h2>
+            </div>
+          ) : (
+            <div className={style.content}>
+              {soldProducts.map((item) => (
+                <Products key={item.id} item={item} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
