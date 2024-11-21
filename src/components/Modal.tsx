@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import style from "../css/modal.module.css";
 import cancel from "../icons/icons8-cancel-50.png";
 import { useForm } from "react-hook-form";
-import { CartItems, Product } from "../projectTypes";
-import toast  from "react-hot-toast";
+import { Product } from "../projectTypes";
+import toast from "react-hot-toast";
 
 function Modal({
   show,
@@ -12,14 +12,14 @@ function Modal({
   modalProductItem,
   token,
   setSaleProducts,
-}:{show:string,
-  setShow: React.Dispatch<React.SetStateAction<string>>,
-  type: string,
-  modalProductItem: Product,
-  token: string | null,
-  setSaleProducts: React.Dispatch<React.SetStateAction<Product[]>>,
+}: {
+  show: string;
+  setShow: React.Dispatch<React.SetStateAction<string>>;
+  type: string;
+  modalProductItem: Product;
+  token: string | null;
+  setSaleProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }) {
-  // const [, setData] = useState();
   const {
     handleSubmit,
     register,
